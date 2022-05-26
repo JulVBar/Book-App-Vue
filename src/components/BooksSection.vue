@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <h3>Секция списка книг</h3>
-    <button @click="changePage">Страница 2</button>
+  <div class="popular-books">
     <books-topic-bar
       @choose="chooseCategorie"
-      :activeCat="activeCat"
-    >
-    </books-topic-bar>
-    <div v-if="activeCat === 'second'">Значит это вторая категория</div>
-    <div v-else>Первая категория</div>
+      :activeBookType="activeBookType"
+    />
+    <book-pagination
+      @change="changePage"
+      :activePage="activePage"
+    />
+
     <div v-if="!isLoading">
       <books-list
         :bookList="bookList"
@@ -22,37 +22,46 @@
 <script>
 import BooksTopicBar from '@/components/BooksTopicBar.vue'
 import BooksList from '@/components/BooksList.vue'
+import BookPagination from '@/components/BookPagination.vue'
 import axios from 'axios'
 
 export default {
   data () {
     return {
-      activeCat: 'all',
+      activeBookType: 'all',
       bookList: [],
       isLoading: false,
-      page: 1
+      activePage: 1
     }
   },
   components: {
-    BooksTopicBar, BooksList
+    BooksTopicBar,
+    BooksList,
+    BookPagination
   },
   methods: {
-    chooseCategorie (cate) {
-      this.activeCat = cate
-      this.page = 1
-      if (this.activeCat === 'all') {
-        this.fetchBooks(`https://gutendex.com/books/?page=${this.page}`)
+    chooseCategorie (bookType) {
+      this.activeBookType = bookType
+      this.activePage = 1
+      if (this.activeBookType === 'all') {
+        this.fetchBooks(`https://gutendex.com/books/?page=${this.activePage}`)
       } else {
-        this.fetchBooks(`https://gutendex.com/books?topic=${this.activeCat}&page=${this.page}`)
+        this.fetchBooks(`https://gutendex.com/books?topic=${this.activeBookType}&page=${this.activePage}`)
       }
     },
-    changePage () {
-      this.page = 2
+    changePage (page) {
+      this.activePage = page
+      if (this.activeBookType === 'all') {
+        this.fetchBooks(`https://gutendex.com/books/?page=${this.activePage}`)
+      } else {
+        this.fetchBooks(`https://gutendex.com/books?topic=${this.activeBookType}&page=${this.activePage}`)
+      }
     },
     async fetchBooks (url) {
       try {
         this.isLoading = true
         const response = await axios.get(url)
+        console.log(response.data.results)
         this.bookList = response.data.results
       } catch (e) {
         alert('ERROR')
@@ -62,20 +71,22 @@ export default {
     }
   },
   mounted () {
-    this.fetchBooks(`https://gutendex.com/books/?page=${this.page}`)
-  },
-  watch: {
-    page (newPage) {
-      if (this.activeCat === 'all') {
-        this.this.fetchBooks(`https://gutendex.com/books/?page=${newPage}`)
-      } else {
-        this.this.fetchBooks(`https://gutendex.com/books?topic=${this.activeCat}&page=${newPage}`)
-      }
-    }
+    this.fetchBooks(`https://gutendex.com/books/?page=${this.activePage}`)
+    // this.fetchBooks(`https://gutendex.com/books/?search=sky%20brown&page=${this.activePage}`)
+    // this.fetchBooks(`https://gutendex.com/books/?search=moby%20dick&page=${this.activePage}`)
+    // this.fetchBooks(`https://gutendex.com/books?topic=novel&page=${this.activePage}`)
+    // this.fetchBooks('https://gutendex.com/books/?ids=68070,68069,68068,68067,68066,68065,68064,68063,68062')
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/style/vars.scss';
 
+  .popular-books {
+    flex-grow: 1;
+    padding: 0 30px 50px;
+    overflow-y: auto;
+    position: relative;
+  }
 </style>

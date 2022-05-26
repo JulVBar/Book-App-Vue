@@ -1,54 +1,33 @@
-  <!-- <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
-  </template>
-
-  <style lang="scss">
-  #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  }
-
-  nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-  }
-  </style> -->
-
 <template>
-      <h1>Страница с постами</h1>
-      <books-section>
-
-      </books-section>
-      <div v-if="!isLoading">
-        <div v-for="book in booksList" :key="book.id" >
-          <h2>{{book.title}}</h2>
-        </div>
+<div class="book-store">
+  <books-header></books-header>
+  <books-slider></books-slider>
+  <div class="main-wrapper">
+    <side-bar></side-bar>
+    <books-section></books-section>
+    <!-- <div v-if="!isLoading">
+      <div v-for="book in booksList" :key="book.id" >
+        <h2>{{book.title}}</h2>
       </div>
-      <div v-else>Loading</div>
+    </div>
+    <div v-else>Loading</div> -->
+  </div>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
 import BooksSection from '@/components/BooksSection.vue'
+import SideBar from './components/SideBar.vue'
+import BooksHeader from './components/BooksHeader.vue'
+import BooksSlider from './components/BooksSlider.vue'
 
 export default {
   components: {
-    BooksSection
+    BooksSection,
+    SideBar,
+    BooksHeader,
+    BooksSlider
   },
   data () {
     return {
@@ -79,5 +58,32 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '@/style/main.scss';
+@import '@/style/vars.scss';
+
+.book-store {
+    display: flex;
+    flex-direction: column;
+    max-width: 1400px;
+    //  height: 100vh;
+    background-color: $page-bg-color;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0px 2px 50px 10px rgba(0, 0, 0, 0.21);
+}
+
+.main-wrapper {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    margin-top: 50px;
+    overflow: hidden;
+}
+
+@media (max-width: 420px) {
+  .main-wrapper {
+    margin-top: 50px;
+  }
+}
 </style>

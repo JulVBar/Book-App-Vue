@@ -1,27 +1,23 @@
 <template lang="">
-  <div class="header">
-         <div class="browse">
-          <div class="browse-category">
-           Browse Category
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-            <path d="M6 9l6 6 6-6" /></svg>
-          </div>
-          <div class="search-bar">
-           <input type="text" placeholder="Search Book" />
-          </div>
-         </div>
-         <div class="header-title">read<span>books</span></div>
-         <div class="profile">
-          <div class="user-profile">
-           <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="" class="user-img">
-          </div>
-          <div class="profile-menu">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
-            <path d="M3 12h18M3 6h18M3 18h18" /></svg>
-           Menu
-          </div>
-         </div>
-        </div>
+<div class="header">
+  <nav class="nav-bar">
+    <div class="nav-bar-link" @click="$router.push('/')">Home</div>
+    <div class="nav-bar-link" @click="$router.push('/favourite')">Favourite</div>
+  </nav>
+
+  <div class="header-title">read<span>books</span></div>
+
+  <div class="browse">
+    <div class="browse-category">
+    Sort by
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+    <path d="M6 9l6 6 6-6" /></svg>
+    </div>
+    <div class="search-bar">
+    <input type="text" placeholder="Search Book" />
+    </div>
+  </div>
+</div>
 </template>
 
 <style lang="scss" scoped>
@@ -43,6 +39,20 @@
   color: $body-color-light;
   justify-content: space-between;
   flex-shrink: 0;
+}
+.nav-bar {
+  display: flex;
+  width: 350px;
+  &-link {
+    padding: 0 10px;
+    cursor: pointer;
+    &:hover {
+      -webkit-text-stroke: .3px;
+    }
+  }
+  &-link:not(:last-child) {
+    border-right: 1px solid $border-color;
+  }
 }
 
 .search-bar {
@@ -69,6 +79,7 @@
 
 .browse {
   @extend %display;
+  width: 350px;
   &-category {
     @extend %display;
     border-right: 1px solid $border-color;
@@ -83,58 +94,9 @@
 .header-title {
   font-size: 16px;
   font-weight: 400;
-  margin-right: 120px;
   span {
     font-weight: 500;
     color: $body-color;
-  }
-}
-
-.user-img {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.user-profile {
-  position: relative;
-  cursor: pointer;
-  flex-shrink: 0;
-  &:before {
-    content: "";
-    position: absolute;
-    background-color: #f86d72;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    border: 2px solid $page-bg-color;
-    right: 12px;
-    top: -3px;
-    border: 2px solid #fff;
-  }
-}
-
-.profile {
-  @extend %display;
-  flex-shrink: 0;
-  &-menu {
-    @extend %display;
-    border-left: 1px solid $border-color;
-  }
-  svg {
-    width: 16px;
-    margin: 0 8px 0 15px;
-    flex-shrink: 0;
-  }
-}
-
-@media (max-width: 725px) {
-  .browse-category, .search-bar {
-    display: none;
-  }
-  .header-title {
-    margin-right: auto;
   }
 }
 </style>

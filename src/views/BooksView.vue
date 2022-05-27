@@ -62,7 +62,7 @@ export default {
         this.isLoading = true
         const response = await axios.get(url)
         console.log(response.data.results)
-        this.bookList = response.data.results
+        this.bookList = response.data.results.slice(0, 8)
       } catch (e) {
         alert('ERROR')
       } finally {
@@ -72,10 +72,6 @@ export default {
   },
   mounted () {
     this.fetchBooks(`https://gutendex.com/books/?page=${this.activePage}`)
-    // this.fetchBooks(`https://gutendex.com/books/?search=sky%20brown&page=${this.activePage}`)
-    // this.fetchBooks(`https://gutendex.com/books/?search=moby%20dick&page=${this.activePage}`)
-    // this.fetchBooks(`https://gutendex.com/books?topic=novel&page=${this.activePage}`)
-    // this.fetchBooks('https://gutendex.com/books/?ids=68070,68069,68068,68067,68066,68065,68064,68063,68062')
   }
 }
 </script>

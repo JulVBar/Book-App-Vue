@@ -8,9 +8,8 @@
         <div class="content-wrapper">
           <div class="lang">
             <icon-base width="20" height="20" icon-name="lang"><icon-lang /></icon-base>
-            <span>{{ book.languages[0].toUpperCase() }}</span>
           </div>
-          <img :src='book.formats["image/jpeg"]' alt="" class="book-card-img">
+          <img :src='book.formats["image/jpeg"]' :alt="book.title" class="book-card-img">
           <div class="card-content">
             <div class="book-name">{{ book.title }}</div>
             <div class="book-by">
@@ -98,7 +97,6 @@ export default {
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   padding: 0 0 20px 20px;
 }
 

@@ -6,8 +6,9 @@
         class="book-card"
       >
         <div class="content-wrapper">
-          <div class="lang">
-            <icon-base width="20" height="20" icon-name="lang"><icon-lang /></icon-base>
+          <div class="heart" @click="addToFavouriteList(book)">
+            <icon-base v-if="isInFavouriteList(book)" width="20" height="20"><icon-heart-filled /></icon-base>
+            <icon-base  v-else width="20" height="20"><icon-heart /></icon-base>
           </div>
           <img :src='book.formats["image/jpeg"]' :alt="book.title" class="book-card-img">
           <div class="card-content">
@@ -41,7 +42,8 @@
 <script>
 import IconBase from '@/components/UI/IconBase.vue'
 import IconDownload from '@/components/icons/IconDownload.vue'
-import IconLang from '@/components/icons/IconLang.vue'
+import IconHeart from '@/components/icons/IconHeart.vue'
+import IconHeartFilled from '@/components/icons/IconHeartFilled.vue'
 
 export default {
   props: {
@@ -51,7 +53,20 @@ export default {
     }
   },
   components: {
-    IconBase, IconDownload, IconLang
+    IconBase, IconDownload, IconHeart, IconHeartFilled
+  },
+  methods: {
+    isInFavouriteList (book) {
+      return localStorage.getItem(book.id)
+    },
+    addToFavouriteList (book) {
+      if (localStorage.getItem(book.id)) {
+        localStorage.removeItem(book.id)
+      } else {
+        localStorage.setItem(book.id, JSON.stringify(book))
+      }
+      this.$forceUpdate()
+    }
   }
 }
 </script>
@@ -184,13 +199,15 @@ export default {
   position: relative;
 }
 
-.lang {
+.heart {
   position: absolute;
+  z-index: 100;
   top: 10px;
   right: 10px;
   display: flex;
   align-items: center;
   color: $body-color-light;
+  cursor: pointer;
 
   span {
     font-size: 13px;

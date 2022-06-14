@@ -86,8 +86,8 @@ export default {
       bottom: -17px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #67d4ea;
-      box-shadow: 0px -1px 5px 0px #67d4ea;
+      background-color: $primary;
+      box-shadow: 0px -1px 5px 0px $primary;
     }
   }
 }

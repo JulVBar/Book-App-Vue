@@ -1,8 +1,8 @@
-<template lang="">
+<template>
 <div class="header">
   <nav class="nav-bar">
-    <div class="nav-bar-link" @click="$router.push('/')">Home</div>
-    <div class="nav-bar-link" @click="$router.push('/favourite')">Favourite</div>
+    <router-link class="nav-bar-link" to="/">Home</router-link>
+    <router-link class="nav-bar-link" to="/favourite">Favourite</router-link>
   </nav>
 
   <div class="header-title">read<span>books</span></div>
@@ -14,7 +14,7 @@
     <path d="M6 9l6 6 6-6" /></svg>
     </div>
     <div class="search-bar">
-    <input type="text" placeholder="Search Book" />
+      <input type="text" placeholder="Search Book" />
     </div>
   </div>
 </div>
@@ -45,7 +45,8 @@
   width: 350px;
   &-link {
     padding: 0 10px;
-    cursor: pointer;
+    text-decoration: none;
+    color: $body-color-light;
     &:hover {
       -webkit-text-stroke: .3px;
     }
@@ -53,6 +54,10 @@
   &-link:not(:last-child) {
     border-right: 1px solid $border-color;
   }
+}
+.router-link-active {
+  color: #3d4954;
+  -webkit-text-stroke: .3px;
 }
 
 .search-bar {

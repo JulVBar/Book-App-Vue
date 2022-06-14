@@ -15,7 +15,9 @@
         >
       </books-list>
     </div>
-    <div v-else>Loading</div>
+    <div v-else>
+      <loader-book/>
+    </div>
   </div>
 </template>
 
@@ -23,6 +25,7 @@
 import BooksTopicBar from '@/components/BooksTopicBar.vue'
 import BooksList from '@/components/BooksList.vue'
 import BookPagination from '@/components/BookPagination.vue'
+import LoaderBook from '@/components/LoaderBook.vue'
 import axios from 'axios'
 
 export default {
@@ -37,7 +40,8 @@ export default {
   components: {
     BooksTopicBar,
     BooksList,
-    BookPagination
+    BookPagination,
+    LoaderBook
   },
   methods: {
     chooseCategorie (bookType) {

@@ -16,7 +16,9 @@
             :activeAuthor="activeAuthor"
           />
         </div>
-        <div v-else>Loading</div>
+        <div v-else>
+          <loader-book/>
+        </div>
     </div>
   </div>
 </template>
@@ -26,10 +28,11 @@ import axios from 'axios'
 import AuthorsList from '@/components/AuthorsList.vue'
 import AuthorsBooks from '@/components/AuthorsBooks.vue'
 import { authorsList } from '@/constants/bestAuthorsList'
+import LoaderBook from './LoaderBook.vue'
 
 export default {
   components: {
-    AuthorsList, AuthorsBooks
+    AuthorsList, AuthorsBooks, LoaderBook
   },
   data () {
     return {

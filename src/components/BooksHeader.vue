@@ -8,17 +8,47 @@
   <div class="header-title">read<span>books</span></div>
 
   <div class="browse">
-    <div class="browse-category">
-    Sort by
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-    <path d="M6 9l6 6 6-6" /></svg>
-    </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search Book" />
-    </div>
+    <form class="search-bar">
+      <input
+      v-model="searchedPhrase"
+      type="text"
+      placeholder="Search Book" />
+      <button  @click="fetchSearchingResults" type="submit"><router-link to="/search" class="search-link">Search</router-link></button>
+    </form>
   </div>
 </div>
 </template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      searchedPhrase: '',
+      searchedList: [],
+      isLoading: false
+    }
+  },
+  methods: {
+    async fetchSearchingResults () {
+      try {
+        if (this.searchedPhrase) {
+          console.log(this.searchedPhrase)
+          this.isLoading = true
+          const response = await axios.get(`https://gutendex.com/books?search=${this.searchedPhrase}`)
+          console.log(response.data.results)
+          this.searchedList = response.data.results.slice(0, 8)
+        }
+      } catch (e) {
+        alert('ERROR')
+      } finally {
+        this.isLoading = false
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import '@/style/vars.scss';
@@ -55,21 +85,32 @@
     border-right: 1px solid $border-color;
   }
 }
+.search-link {
+  text-decoration: none;
+  font-family: $body-font;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
 .router-link-active {
   color: #3d4954;
   -webkit-text-stroke: .3px;
 }
-
 .search-bar {
   position: relative;
+  display: flex;
+  border-radius: 20px;
+  border: 1px solid $placeholder;
   input {
+    padding: 8px 30px;
+    border-radius: 20px;
+    border: none;
     height: 100%;
     width: 100%;
     display: block;
     background-color: transparent;
-    border: none;
     font-weight: 600;
-    padding: 0 10px 0 40px;
+    padding: 8px 10px 8px 40px;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%238b939c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-search'%3e%3ccircle cx='11' cy='11' r='8'/%3e%3cpath d='M21 21l-4.35-4.35'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-size: 15px;
@@ -77,8 +118,14 @@
     color: $body-color;
     font-family: $body-font;
     &::placeholder {
-    color: $placeholder;
+      color: $placeholder;
     }
+  }
+  button {
+    padding: 9px 30px;
+    border-radius: 20px;
+    background: $placeholder;
+    border: none;
   }
 }
 

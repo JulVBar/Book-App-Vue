@@ -13,7 +13,7 @@
       v-model="searchedPhrase"
       type="text"
       placeholder="Search Book" />
-      <button  @click="fetchSearchingResults" type="submit"><router-link to="/search" class="search-link">Search</router-link></button>
+      <router-link to="/search" class="search-link"><button class="search-btn" @click="fetchSearchingResults" type="submit">Search</button></router-link>
     </form>
   </div>
 </div>
@@ -25,25 +25,18 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      searchedPhrase: '',
-      searchedList: [],
-      isLoading: false
+      searchedPhrase: ''
     }
   },
   methods: {
     async fetchSearchingResults () {
       try {
         if (this.searchedPhrase) {
-          console.log(this.searchedPhrase)
-          this.isLoading = true
           const response = await axios.get(`https://gutendex.com/books?search=${this.searchedPhrase}`)
-          console.log(response.data.results)
-          this.searchedList = response.data.results.slice(0, 8)
+          this.$store.commit('setSearchedResults', response.data.results.slice(0, 8))
         }
       } catch (e) {
         alert('ERROR')
-      } finally {
-        this.isLoading = false
       }
     }
   }
@@ -85,16 +78,13 @@ export default {
     border-right: 1px solid $border-color;
   }
 }
-.search-link {
+.search-btn {
+  cursor: pointer;
   text-decoration: none;
   font-family: $body-font;
   font-weight: 500;
   letter-spacing: 0.5px;
   color: #fff;
-}
-.router-link-active {
-  color: #3d4954;
-  -webkit-text-stroke: .3px;
 }
 .search-bar {
   position: relative;

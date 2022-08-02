@@ -8,6 +8,20 @@
       delay: 3500,
       disableOnInteraction: true,
     }"
+    :breakpoints="{
+      '@0.00': {
+        slidesPerView: 1,
+      },
+      '@0.75': {
+        slidesPerView: 1,
+      },
+      '@1.00': {
+        slidesPerView: 2,
+      },
+      '@1.50': {
+        slidesPerView: 3,
+      },
+    }"
     :modules="modules"
     class="mySwiper book-slide"
   >
@@ -25,7 +39,7 @@
             <a :href="slide.link" :class="slide.linkColor" target="blank">See the book</a>
           </div>
           </div>
-      </div>
+        </div>
       </div>
     </swiper-slide>
   </swiper>
@@ -87,6 +101,13 @@ export default {
 
 .book-wrap {
   padding-bottom: 70px;
+  @media (max-width: 1230px) {
+    padding-bottom: 30px;
+  }
+  @media (max-width: 900px) {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .book-cell {
@@ -96,6 +117,26 @@ export default {
   width: 465px;
   height: 250px;
   margin-right: 1px;
+  @media (max-width: 1300px) {
+    width: 435px;
+  }
+  @media (max-width: 1200px) {
+    width: 400px;
+    height: 220px;
+  }
+  @media (max-width: 1100px) {
+    width: 360px;
+    height: 220px;
+  }
+  @media (max-width: 1020px) {
+    width: 500px;
+  }
+  @media (max-width: 930px) {
+    width: 460px;
+  }
+  @media (max-width: 830px) {
+    width: 415px;
+  }
 }
 
 .book-photo {
@@ -119,6 +160,14 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  @media (max-width: 1250px) {
+    width: 140px;
+    height: 200px;
+  }
+  @media (max-width: 1100px) {
+    width: 120px;
+    height: 170px;
   }
 }
 

@@ -57,13 +57,13 @@ export default {
   },
   methods: {
     isInFavouriteList (book) {
-      return localStorage.getItem(book.id)
+      return sessionStorage.getItem(book.id)
     },
     addToFavouriteList (book) {
-      if (localStorage.getItem(book.id)) {
-        localStorage.removeItem(book.id)
+      if (sessionStorage.getItem(book.id)) {
+        sessionStorage.removeItem(book.id)
       } else {
-        localStorage.setItem(book.id, JSON.stringify(book))
+        sessionStorage.setItem(book.id, JSON.stringify(book))
       }
       this.$forceUpdate()
     }
@@ -100,6 +100,10 @@ export default {
   justify-content: space-between;
   padding-top: 40px;
   position: relative;
+  @media (max-width: 800px) {
+      padding: 0px;
+      padding-top: 30px;
+    }
 }
 
 .book-card {
@@ -113,6 +117,9 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0 0 20px 20px;
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 }
 
 .book-card-img {
@@ -132,6 +139,11 @@ export default {
   }
   &:hover {
     transform: scale(1.04);
+  }
+  @media (max-width: 600px) {
+    width: 100px;
+    height: 160px;
+    margin-top: -15px;
   }
 }
 
@@ -169,7 +181,10 @@ export default {
 }
 
 .book-read {
-  margin-left: 185px;
+  width: 100%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
   a {
     text-decoration: none;
     border: 2px solid #a4e0eb;

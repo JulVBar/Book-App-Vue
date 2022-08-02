@@ -82,6 +82,13 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   flex-shrink: 0;
+  @media (max-width: 1050px) {
+      width: 200px;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+    flex-direction: row;
+  }
 }
 .books-of-section {
   ul {
@@ -90,6 +97,10 @@ export default {
     margin: 0;
   }
   padding: 0 30px;
+  @media (max-width: 1050px) {
+      padding-left: 15px;
+      padding-right: 0px;
+  }
 }
 .sidebar-title {
   padding-bottom: 20px;

@@ -32,11 +32,14 @@ export default {
     async fetchSearchingResults () {
       try {
         if (this.searchedPhrase) {
+          this.$store.commit('setIsSearching', true)
           const response = await axios.get(`https://gutendex.com/books?search=${this.searchedPhrase}`)
           this.$store.commit('setSearchedResults', response.data.results.slice(0, 8))
         }
       } catch (e) {
         alert('ERROR')
+      } finally {
+        this.$store.commit('setIsSearching', false)
       }
     }
   }
@@ -53,6 +56,7 @@ export default {
 
 .header {
   @extend %display;
+  position: relative;
   height: 70px;
   width: 100%;
   background: $page-bg-color;
@@ -62,6 +66,23 @@ export default {
   color: $body-color-light;
   justify-content: space-between;
   flex-shrink: 0;
+  @media (max-width: 650px) {
+    padding: 0 5px;
+  }
+  @media (max-width: 490px) {
+    margin-bottom: 50px;
+  }
+}
+.header-title {
+  font-size: 16px;
+  font-weight: 400;
+  span {
+    font-weight: 500;
+    color: $body-color;
+  }
+  @media (max-width: 490px) {
+    margin-right: 10px;
+  }
 }
 .nav-bar {
   display: flex;
@@ -76,6 +97,9 @@ export default {
   }
   &-link:not(:last-child) {
     border-right: 1px solid $border-color;
+  }
+  @media (max-width: 650px) {
+    width: auto;
   }
 }
 .search-btn {
@@ -122,6 +146,7 @@ export default {
 .browse {
   @extend %display;
   width: 350px;
+  margin-left: 20px;
   &-category {
     @extend %display;
     border-right: 1px solid $border-color;
@@ -131,14 +156,11 @@ export default {
     margin: 2px 10px 0 8px;
     }
   }
-}
-
-.header-title {
-  font-size: 16px;
-  font-weight: 400;
-  span {
-    font-weight: 500;
-    color: $body-color;
+  @media (max-width: 490px) {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>

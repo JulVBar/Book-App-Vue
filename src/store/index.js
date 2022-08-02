@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 export default createStore({
   state () {
     return {
-      searchedResults: []
+      searchedResults: [],
+      isSearching: false
     }
   },
   getters: {
@@ -14,6 +15,9 @@ export default createStore({
   mutations: {
     setSearchedResults (state, searchedResults) {
       state.searchedResults = searchedResults
+    },
+    setIsSearching (state, isSearching) {
+      state.isSearching = isSearching
     }
   },
   actions: {

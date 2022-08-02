@@ -6,6 +6,7 @@
     <side-bar></side-bar>
     <router-view></router-view>
   </div>
+  <books-footer></books-footer>
 </div>
 </template>
 
@@ -13,12 +14,14 @@
 import SideBar from './components/SideBar.vue'
 import BooksHeader from './components/BooksHeader.vue'
 import BooksSlider from './components/BooksSlider.vue'
+import BooksFooter from './components/BooksFooter.vue'
 
 export default {
   components: {
     SideBar,
     BooksHeader,
-    BooksSlider
+    BooksSlider,
+    BooksFooter
   },
   data () {
     return {
@@ -51,5 +54,13 @@ export default {
     flex-grow: 1;
     margin-top: 50px;
     overflow: hidden;
+    @media (max-width: 1250px) {
+      margin-top: 10px;
+    }
+    @media (max-width: 800px) {
+      flex-direction: column-reverse;
+      align-items: center;
+      margin-top: 0px;
+    }
 }
 </style>

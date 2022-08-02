@@ -1,39 +1,32 @@
 <template>
   <div class="favourite-books">
     <div class="favourite-books-title">Your Favourite Books</div>
-    <div v-if="!isLoading">
-      <div v-if="favouriteBookList.length > 0">
-        <books-list
-          :bookList="favouriteBookList"
-          >
-        </books-list>
-        <div class="clear-btn">
-          <button @click="clearFavoutiteList">
-            Clear List
-          </button>
-        </div>
-      </div>
-      <div v-else class="nofav">
-        <div class="nofav-img">
-          <img src="@/assets/nofav.png">
-        </div>
-        <div class="nofav-text">You don't have any favourite books</div>
+    <div v-if="favouriteBookList.length > 0">
+      <books-list
+        :bookList="favouriteBookList"
+        >
+      </books-list>
+      <div class="clear-btn">
+        <button @click="clearFavoutiteList">
+          Clear List
+        </button>
       </div>
     </div>
-    <div v-else>
-      <loader-book/>
+    <div v-else class="nofav">
+      <div class="nofav-img">
+        <img src="@/assets/nofav.png">
+      </div>
+      <div class="nofav-text">You don't have any favourite books</div>
     </div>
   </div>
 </template>
 
 <script>
 import BooksList from '@/components/BooksList.vue'
-import LoaderBook from '@/components/LoaderBook.vue'
 
 export default {
   components: {
-    BooksList,
-    LoaderBook
+    BooksList
   },
   data () {
     return {
@@ -42,12 +35,12 @@ export default {
   },
   methods: {
     clearFavoutiteList () {
-      localStorage.clear()
+      sessionStorage.clear()
       this.favouriteBookList = []
     }
   },
   mounted () {
-    this.favouriteBookList = localStorage.length !== 0 ? (Object.values(localStorage)).map(item => JSON.parse(item)) : []
+    this.favouriteBookList = sessionStorage.length !== 0 ? (Object.values(sessionStorage)).map(item => JSON.parse(item)) : []
   }
 }
 </script>

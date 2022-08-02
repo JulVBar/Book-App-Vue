@@ -65,7 +65,6 @@ export default {
       try {
         this.isLoading = true
         const response = await axios.get(url)
-        console.log(response.data.results)
         this.bookList = response.data.results.slice(0, 8)
       } catch (e) {
         alert('ERROR')
@@ -84,9 +83,15 @@ export default {
 @import '@/style/vars.scss';
 
   .popular-books {
-    flex-grow: 1;
+    width: 100%;
     padding: 0 30px 50px;
     overflow-y: auto;
     position: relative;
+    @media (max-width: 1050px) {
+      padding: 0 20px 50px;
+    }
+    @media (max-width: 800px) {
+      padding: 10px;
+    }
   }
 </style>

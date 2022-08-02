@@ -1,27 +1,34 @@
 <template>
   <div class="favourite-books">
     <div class="favourite-books-title">Search Results</div>
-    <div v-if="$store.state.searchedResults.length > 0">
-      <books-list
-        :bookList="$store.state.searchedResults"
-        >
-      </books-list>
-    </div>
-    <div v-else class="nofav">
-      <div class="nofav-img">
-        <img src="@/assets/nofav.png">
+    <div v-if="!$store.state.isSearching">
+      <div v-if="$store.state.searchedResults.length > 0">
+        <books-list
+          :bookList="$store.state.searchedResults"
+          >
+        </books-list>
       </div>
-      <div class="nofav-text">No search results</div>
+      <div v-else class="nofav">
+        <div class="nofav-img">
+          <img src="@/assets/nofav.png">
+        </div>
+        <div class="nofav-text">No search results</div>
+      </div>
+    </div>
+    <div v-else>
+      <loader-book/>
     </div>
   </div>
 </template>
 
 <script>
 import BooksList from '@/components/BooksList.vue'
+import LoaderBook from '@/components/LoaderBook.vue'
 
 export default {
   components: {
-    BooksList
+    BooksList,
+    LoaderBook
   }
 }
 </script>

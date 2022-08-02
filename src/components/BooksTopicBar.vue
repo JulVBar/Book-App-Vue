@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      categories: ['all', 'fiction', 'fantasy', 'detective', 'children', 'adventure', 'philosophy', 'novel']
+      categories: ['all', 'fiction', 'fantasy', 'detective', 'children', 'adventure']
     }
   },
   props: {
@@ -45,11 +45,17 @@ export default {
   right: 0;
   background-color: $page-bg-color;
   z-index: 2;
+  @media (max-width: 600px) {
+      flex-direction: column;
+  }
 }
 
 .genre {
   font-weight: 500;
   font-size: 15px;
+  @media (max-width: 600px) {
+      margin-bottom: 15px;
+  }
 }
 
 .book-types {
@@ -59,7 +65,6 @@ export default {
   padding: 0;
   margin-top: 0;
   margin-bottom: 0;
-
   li {
     text-decoration: none;
     color: $body-color;
@@ -68,7 +73,16 @@ export default {
 
     &:not(:last-child) {
       margin-right: 20px;
+      @media (max-width: 600px) {
+        margin-right: 12px;
+      }
     }
+  }
+  @media (max-width: 600px) {
+      margin-left: 5px;
+  }
+  @media (max-width: 460px) {
+      // flex-direction: column;
   }
 }
 
